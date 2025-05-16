@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>날씨 기반 의상 추천</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>👕 날씨 기반 AI 의상 추천</h1>
+      <input
+        type="text"
+        id="cityInput"
+        placeholder="도시명을 입력하세요 (예: 서울)"
+      />
+      <button onclick="getRecommendation()">추천받기</button>
+
+      <div id="result" class="result-box"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
