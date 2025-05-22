@@ -26,14 +26,15 @@ def recommend_gemini():
     prompt = f"""
     현재 기온은 {temp}도이고, 날씨는 {desc}, 습도는 {humidity}%입니다.
     이런 날씨에 어울리는 남녀 모두 입을 수 있는 **캐주얼 데일리룩**을 하나만 추천해줘.
-    예: 얇은 셔츠 + 청바지, 가벼운 후드티 + 반바지 처럼 간단하게 말해줘.
+    예: 얇은 하늘색 셔츠 + 청바지, 가벼운 후드티 + 베이지색 반바지 처럼 간단하게 말해줘.
     """
 
     # AI 텍스트 생성
     genai.configure(api_key=GEMINI_API_KEY)
-    model = genai.GenerativeModel("gemini-pro")
+    model = genai.GenerativeModel("gemini-2.0-flash")
     response = model.generate_content(prompt)
     generated = response.text.strip()
+    print(generated)
 
     result_json = json.dumps({"recommendation": generated}, ensure_ascii=False)
     return Response(result_json, content_type="application/json")

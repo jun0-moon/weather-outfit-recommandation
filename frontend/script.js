@@ -9,7 +9,7 @@ async function getRecommendation() {
       `http://localhost:5000/recommend_gemini?city=${city}`
     );
     const data = await res.json();
-    resultDiv.innerText = "👕 " + data.recommendation;
+    resultDiv.innerText = "👕 " + res.recommendation;
   } catch (err) {
     resultDiv.innerText = "❌ 추천 실패: " + err.message;
   }
