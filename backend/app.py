@@ -1,22 +1,17 @@
 import json
 from flask import Flask, request, Response, jsonify
 import requests
-from transformers import pipeline
+from constants import GEMINI_API_KEY, OPEN_WEATHER_MAP_API_KEY
+import google.generativeai as genai
 
 app = Flask(__name__)
 
-# OpenWeatherMap API Key
-API_KEY = "0284e70071622bcb22e623b8584d52f1"
-
-# AI 모델 로드
-generator = pipeline("text-generation", model="skt/kogpt2-base-v2")
-
-@app.route('/recommend')
-def recommend():
+@app.route('/recommend_gemini')
+def recommend_gemini():
     city = request.args.get('city')
 
     # 날씨 데이터 가져오기
-    weather_url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric&lang=kr"
+    weather_url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={OPEN_WEATHER_MAP_API_KEY}&units=metric&lang=kr"
     weather_res = requests.get(weather_url)
     
     if weather_res.status_code != 200:
@@ -35,8 +30,10 @@ def recommend():
     """
 
     # AI 텍스트 생성
-    result = generator(prompt, max_length=100, num_return_sequences=1)
-    generated = result[0]['generated_text'].replace(prompt.strip(), '').strip()
+    genai.configure(api_key=GEMINI_API_KEY)
+    model = genai.GenerativeModel("gemini-pro")
+    response = model.generate_content(prompt)
+    generated = response.text.strip()
 
     result_json = json.dumps({"recommendation": generated}, ensure_ascii=False)
     return Response(result_json, content_type="application/json")

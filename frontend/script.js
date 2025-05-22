@@ -5,7 +5,9 @@ async function getRecommendation() {
   resultDiv.innerText = "AI가 추천 중입니다...🧠";
 
   try {
-    const res = await fetch(`http://localhost:5000/recommend?city=${city}`);
+    const res = await fetch(
+      `http://localhost:5000/recommend_gemini?city=${city}`
+    );
     const data = await res.json();
     resultDiv.innerText = "👕 " + data.recommendation;
   } catch (err) {
