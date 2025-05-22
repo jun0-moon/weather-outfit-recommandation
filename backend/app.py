@@ -1,10 +1,12 @@
 import json
 from flask import Flask, request, Response, jsonify
+from flask_cors import CORS
 import requests
 from constants import GEMINI_API_KEY, OPEN_WEATHER_MAP_API_KEY
 import google.generativeai as genai
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/recommend_gemini')
 def recommend_gemini():
