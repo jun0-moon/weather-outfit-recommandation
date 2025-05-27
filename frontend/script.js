@@ -1,5 +1,30 @@
+// ✅ 1. 도시명 매핑 테이블 추가
+const cityTranslation = {
+  "서울": "Seoul",
+  "부산": "Busan",
+  "대구": "Daegu",
+  "인천": "Incheon",
+  "광주": "Gwangju",
+  "대전": "Daejeon",
+  "울산": "Ulsan",
+  "제주": "Jeju",
+  "춘천": "Chuncheon",
+  "포항": "Pohang",
+  "청주": "Cheongju",
+  "창원": "Changwon",
+  "전주": "Jeonju",
+  "여수": "Yeosu",
+  "김해": "Gimhae"
+};
+
+// ✅  입력값 처리 함수
+function getCityInputValue() {
+  const rawInput = document.getElementById("cityInput").value.trim();
+  return cityTranslation[rawInput] || rawInput;  // 매핑 실패 시 원본 반환
+}
+
 async function getRecommendation() {
-  const city = document.getElementById("cityInput").value;
+  const city = getCityInputValue()
   const resultDiv = document.getElementById("result");
 
   resultDiv.innerText = "AI가 추천 중입니다...🧠";
